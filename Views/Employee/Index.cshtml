@@ -1,0 +1,45 @@
+﻿@model IEnumerable<EmployerManagementSystem.Models.EmployeeModel>
+@{
+    ViewBag.Title = "Employee";
+}
+
+<h2>Employee</h2>
+
+@foreach (var item in Model)
+{
+    <div>
+        @item.FirstName
+        @item.EmployeeCode
+        @item.DepartmentCode
+        @item.EmployerCode
+        @item.EmployerId
+        <hr />
+    </div>
+}
+
+<div ng-controller = "employeeController">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td style="width: 150px">Name<br />
+                <input type="text" id="txtFirstName" ng-model = "firstName" style="width: 140px" />
+            </td>
+            <td style="width: 150px">Employee Code:<br />
+                <input type="text" id="txtEmployeeCode" ng-model = "employeeCode" style="width: 140px" />
+            </td>
+            <td style="width: 150px">Department Code:<br />
+                <input type="text" id="txtDepartmentCode" ng-model = "departmentCode" style="width: 140px" />
+            </td>
+            <td style="width: 150px">Designation:<br />
+                <input type="text" id="txtDesignation" ng-model = "designation" style="width: 140px" />
+            </td>
+            <td style="width: 150px">Employer Id:<br />
+                <input type="text" id="txtEmployerId" ng-model = "employerId" style="width: 140px" />
+            </td>
+            <td style="width: 200px">
+                <br />
+                <input type="button" id="btnAdd" value="Add" ng-click="AddEmployee()" />
+            </td>
+        </tr>
+    </table>
+    {{Message}}
+</div>

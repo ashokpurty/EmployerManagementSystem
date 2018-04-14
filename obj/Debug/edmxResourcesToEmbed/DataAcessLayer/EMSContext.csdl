@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="EMSContext" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="EMSContextContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Employees" EntityType="EMSContext.Employee" />
+    <EntitySet Name="Employers" EntityType="EMSContext.Employer" />
+    <AssociationSet Name="AssociationEmployer" Association="EMSContext.AssociationEmployer">
+      <End Role="Employer" EntitySet="Employers" />
+      <End Role="Employee" EntitySet="Employees" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="EmployeeId" />
+    </Key>
+    <Property Type="Int32" Name="EmployeeId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="EmployeeCode" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="String" Name="FirstName" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="String" Name="Designation" Nullable="true" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="String" Name="DepartmentCode" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Employer" Relationship="EMSContext.AssociationEmployer" FromRole="Employee" ToRole="Employer" />
+    <Property Type="Int32" Name="EmployerId" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employer">
+    <Key>
+      <PropertyRef Name="EmployerId" />
+    </Key>
+    <Property Type="Int32" Name="EmployerId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="EmployerCode" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Type="String" Name="EmployerName" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Employees" Relationship="EMSContext.AssociationEmployer" FromRole="Employer" ToRole="Employee" />
+  </EntityType>
+  <Association Name="AssociationEmployer">
+    <End Type="EMSContext.Employer" Role="Employer" Multiplicity="1" />
+    <End Type="EMSContext.Employee" Role="Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employer">
+        <PropertyRef Name="EmployerId" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="EmployerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
